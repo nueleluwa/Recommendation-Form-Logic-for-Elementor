@@ -174,4 +174,4 @@ For issues, questions, or customization requests, please open an issue on this r
 
 ## Credits
 
-Developed by Emmnanuel Eluwa
+Developed by Emmanuel Eluwa
