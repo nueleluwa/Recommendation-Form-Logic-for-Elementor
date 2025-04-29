@@ -170,8 +170,8 @@ MIT License - Feel free to use, modify, and distribute this code for personal or
 
 ## Support
 
-For issues, questions, or customization requests, please open an issue on this repository or contact support at [YOUR-EMAIL].
+For issues, questions, or customization requests, please open an issue on this repository 
 
 ## Credits
 
-Developed by [YOUR-NAME-OR-COMPANY]
+Developed by Emmnanuel Eluwa
