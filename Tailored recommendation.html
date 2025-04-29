@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Recommendation Form</title>
+    <style>
+        /* Reset styles only for our form container */
+        .lifestyle-form-container {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .lifestyle-form-wrapper {
+            font-family: 'Arial', sans-serif;
+            background-color: #FFF1F1;
+            color: #333333;
+            line-height: 1.6;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 30px;
+            width: 100%;
+        }
+
+        .lifestyle-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .lifestyle-form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .lifestyle-form-col {
+            flex: 1;
+        }
+
+        .lifestyle-form-wrapper label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .lifestyle-form-wrapper input, 
+        .lifestyle-form-wrapper select {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            transition: box-shadow 0.3s;
+            color: #666;
+        }
+        
+        .lifestyle-form-wrapper select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 30px;
+        }
+
+        .lifestyle-form-wrapper input:focus, 
+        .lifestyle-form-wrapper select:focus {
+            border-color: #990000;
+            outline: none;
+        }
+
+        .lifestyle-error {
+            border-color: #e74c3c !important;
+        }
+
+        .lifestyle-error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .lifestyle-submit-button {
+            background-color: #990000;
+            color: white;
+            border: none;
+            padding: 16px 25px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+
+        .lifestyle-submit-button:hover {
+            background-color: #800000;
+        }
+
+        /* Loader Animation */
+        .lifestyle-loader-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lifestyle-loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #990000;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: lifestyle-spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .lifestyle-loader-text {
+            font-size: 18px;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        @keyframes lifestyle-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="lifestyle-form-container">
+        <div class="lifestyle-form-wrapper">
+            <form id="lifestyleRecommendationForm">
+                <div class="lifestyle-form-group">
+                    <label for="lifestyleFullName">Full name</label>
+                    <input type="text" id="lifestyleFullName" name="fullName" placeholder="Enter your first and last name">
+                    <div class="lifestyle-error-message">Please enter your full name</div>
+                </div>
+                
+                <div class="lifestyle-form-row">
+                    <div class="lifestyle-form-col">
+                        <label for="lifestyleEmail">Email Address</label>
+                        <input type="email" id="lifestyleEmail" name="email" placeholder="Enter your email address">
+                        <div class="lifestyle-error-message">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="lifestyle-form-col">
+                        <label for="lifestyleAge">Age</label>
+                        <select id="lifestyleAge" name="age">
+                            <option value="">Select your age range</option>
+                            <option value="18-30">18 - 30</option>
+                            <option value="30-40">30 - 40</option>
+                            <option value="40-50">40 - 50</option>
+                            <option value="50-60">50 - 60</option>
+                            <option value="60 and above">60 and above</option>
+                        </select>
+                        <div class="lifestyle-error-message">Please select your age range</div>
+                    </div>
+                </div>
+                
+                <div class="lifestyle-form-row">
+                    <div class="lifestyle-form-col">
+                        <label for="lifestyleFamilyStatus">Family Status</label>
+                        <select id="lifestyleFamilyStatus" name="familyStatus">
+                            <option value="">Select your family status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Married with Children">Married with Children</option>
+                        </select>
+                        <div class="lifestyle-error-message">Please select your family status</div>
+                    </div>
+                    
+                    <div class="lifestyle-form-col">
+                        <label for="lifestyleCareerStage">Career Stage</label>
+                        <select id="lifestyleCareerStage" name="careerStage">
+                            <option value="">Select your career stage</option>
+                            <option value="Unemployed">Unemployed</option>
+                            <option value="Self-employed">Self-employed</option>
+                            <option value="Employed">Employed</option>
+                            <option value="Retired">Retired</option>
+                        </select>
+                        <div class="lifestyle-error-message">Please select your career stage</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="lifestyle-submit-button">Get My Recommendation</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="lifestyle-loader-container">
+        <div class="lifestyle-loader"></div>
+        <div class="lifestyle-loader-text">Finding the best recommendations for you...</div>
+    </div>
+
+    <script>
+        // Recommendation data
+        const lifestyleRecommendationData = [
+            { age: "18-30", familyStatus: "Single", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-1/" },
+            { age: "18-30", familyStatus: "Single", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-2/" },
+            { age: "18-30", familyStatus: "Single", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-3/" },
+            { age: "18-30", familyStatus: "Married", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-4/" },
+            { age: "18-30", familyStatus: "Married", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-5/" },
+            { age: "18-30", familyStatus: "Married", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-6/" },
+            { age: "18-30", familyStatus: "Married with Children", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-7/" },
+            { age: "18-30", familyStatus: "Married with Children", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-8/" },
+            { age: "18-30", familyStatus: "Married with Children", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-9/" },
+            { age: "30-40", familyStatus: "Single", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-10/" },
+            { age: "30-40", familyStatus: "Single", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-11/" },
+            { age: "30-40", familyStatus: "Single", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-12/" },
+            { age: "30-40", familyStatus: "Married", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-13/" },
+            { age: "30-40", familyStatus: "Married", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-14/" },
+            { age: "30-40", familyStatus: "Married", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-15/" },
+            { age: "30-40", familyStatus: "Married with Children", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-16/" },
+            { age: "30-40", familyStatus: "Married with Children", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-17/" },
+            { age: "30-40", familyStatus: "Married with Children", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-18/" },
+            { age: "40-50", familyStatus: "Single", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-19/" },
+            { age: "40-50", familyStatus: "Single", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-20/" },
+            { age: "40-50", familyStatus: "Single", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-21/" },
+            { age: "40-50", familyStatus: "Married", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-22/" },
+            { age: "40-50", familyStatus: "Married", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-23/" },
+            { age: "40-50", familyStatus: "Married", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-24/" },
+            { age: "40-50", familyStatus: "Married with Children", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-25/" },
+            { age: "40-50", familyStatus: "Married with Children", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-26/" },
+            { age: "40-50", familyStatus: "Married with Children", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-27/" },
+            { age: "50-60", familyStatus: "Single", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-28/" },
+            { age: "50-60", familyStatus: "Single", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-29/" },
+            { age: "50-60", familyStatus: "Single", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-30/" },
+            { age: "50-60", familyStatus: "Married", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-31/" },
+            { age: "50-60", familyStatus: "Married", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-32/" },
+            { age: "50-60", familyStatus: "Married", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-33/" },
+            { age: "50-60", familyStatus: "Married with Children", careerStage: "Unemployed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-34/" },
+            { age: "50-60", familyStatus: "Married with Children", careerStage: "Self-employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-35/" },
+            { age: "50-60", familyStatus: "Married with Children", careerStage: "Employed", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-36/" },
+            { age: "60 and above", familyStatus: "Single", careerStage: "Retired", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-37/" },
+            { age: "60 and above", familyStatus: "Married", careerStage: "Retired", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-38/" },
+            { age: "60 and above", familyStatus: "Married with Children", careerStage: "Retired", redirectUrl: "https://[YOUR-DOMAIN]/recommendation/path-39/" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('lifestyleRecommendationForm');
+            const loaderContainer = document.querySelector('.lifestyle-loader-container');
+            
+            // Function to handle form submission
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    if (validateLifestyleForm()) {
+                        showLifestyleLoader();
+                        
+                        // Get form values
+                        const age = document.getElementById('lifestyleAge').value;
+                        const familyStatus = document.getElementById('lifestyleFamilyStatus').value;
+                        const careerStage = document.getElementById('lifestyleCareerStage').value;
+                        
+                        // Find matching recommendation
+                        setTimeout(function() {
+                            findAndRedirectLifestyle(age, familyStatus, careerStage);
+                        }, 1800); // 1.8 seconds delay for the loader animation
+                    }
+                });
+            }
+            
+            // Form validation function
+            function validateLifestyleForm() {
+                let isValid = true;
+                const requiredFields = [
+                    'lifestyleFullName', 
+                    'lifestyleEmail', 
+                    'lifestyleAge', 
+                    'lifestyleFamilyStatus', 
+                    'lifestyleCareerStage'
+                ];
+                
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (!field) return;
+                    
+                    const errorMessage = field.nextElementSibling;
+                    
+                    // Clear previous error
+                    field.classList.remove('lifestyle-error');
+                    if (errorMessage) errorMessage.style.display = 'none';
+                    
+                    // Check if field is empty
+                    if (!field.value.trim()) {
+                        field.classList.add('lifestyle-error');
+                        if (errorMessage) errorMessage.style.display = 'block';
+                        isValid = false;
+                    }
+                    
+                    // Additional validation for email
+                    if (fieldId === 'lifestyleEmail' && field.value.trim()) {
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(field.value.trim())) {
+                            field.classList.add('lifestyle-error');
+                            if (errorMessage) errorMessage.style.display = 'block';
+                            isValid = false;
+                        }
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Function to show loader
+            function showLifestyleLoader() {
+                if (loaderContainer) {
+                    loaderContainer.style.display = 'flex';
+                }
+            }
+            
+            // Function to find matching recommendation and redirect
+            function findAndRedirectLifestyle(age, familyStatus, careerStage) {
+                // Find matching recommendation
+                const match = lifestyleRecommendationData.find(item => 
+                    item.age === age && 
+                    item.familyStatus === familyStatus && 
+                    item.careerStage === careerStage
+                );
+                
+                if (match) {
+                    // Redirect to the matching URL
+                    window.location.href = match.redirectUrl;
+                } else {
+                    // If no exact match, hide loader and show error
+                    if (loaderContainer) loaderContainer.style.display = 'none';
+                    alert('No recommendation found for your profile. Please try different selections.');
+                }
+            }
+            
+            // Optional: Add special handling for age 60+ to only show Retired option
+            const ageSelect = document.getElementById('lifestyleAge');
+            const careerStageSelect = document.getElementById('lifestyleCareerStage');
+            
+            if (ageSelect && careerStageSelect) {
+                ageSelect.addEventListener('change', function() {
+                    if (this.value === '60 and above') {
+                        // Clear options
+                        careerStageSelect.innerHTML = '';
+                        
+                        // Add only default and Retired options
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = 'Select your career stage';
+                        careerStageSelect.appendChild(defaultOption);
+                        
+                        const retiredOption = document.createElement('option');
+                        retiredOption.value = 'Retired';
+                        retiredOption.textContent = 'Retired';
+                        careerStageSelect.appendChild(retiredOption);
+                        
+                        // Set to Retired automatically
+                        careerStageSelect.value = 'Retired';
+                    } else {
+                        // Restore all options
+                        careerStageSelect.innerHTML = '';
+                        
+                        const options = [
+                            { value: '', text: 'Select your career stage' },
+                            { value: 'Unemployed', text: 'Unemployed' },
+                            { value: 'Self-employed', text: 'Self-employed' },
+                            { value: 'Employed', text: 'Employed' },
+                            { value: 'Retired', text: 'Retired' }
+                        ];
+                        
+                        options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option.value;
+                            optionElement.textContent = option.text;
+                            careerStageSelect.appendChild(optionElement);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
